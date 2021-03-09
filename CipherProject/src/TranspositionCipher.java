@@ -18,6 +18,7 @@ public class TranspositionCipher {
 		for(char[] a : mat) {
 			System.out.println(Arrays.toString(a));
 		}
+		System.out.println();
 	}
 	
 	public String encode(int[] key) {

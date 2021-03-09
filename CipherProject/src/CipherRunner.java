@@ -23,7 +23,9 @@ public class CipherRunner {
 		
 		TranspositionCipher cip = new TranspositionCipher(text,key.length);
 		if(choice.equals("e")) {
-			System.out.println(cip.encode(key));
+			System.out.println("Original message: " + text);
+			System.out.println("Cipher key : " + Arrays.toString(k).replaceAll("[\\[\\], ]", ""));
+			System.out.println("Encrypted message: " + cip.encode(key));
 		}
 		else if(choice.equals("d")) {
 			cip.decode();
