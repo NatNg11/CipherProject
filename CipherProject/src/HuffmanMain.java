@@ -33,6 +33,7 @@ public class HuffmanMain {
 		
 		System.out.print("Give me a bitstream to translate from the previous HuffmanTree: ");
 		input = f.nextLine();
+		if(!input.matches("[01]+")) throw new IllegalArgumentException("Please only enter bits of 0 or 1");
 		System.out.print("Decoded string: ");
 		inp.translate(input, new PrintStream(System.out));
 		

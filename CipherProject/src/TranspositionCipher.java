@@ -12,11 +12,12 @@ public class TranspositionCipher {
 	}
 	
 	public String encode(int[] key) {
-		mat = new char[(int)(Math.ceil(text.length()/(double)keylen))][keylen];
+		int r = (int)(Math.ceil(text.length()/(double)keylen)), c = keylen;
+		mat = new char[r][c];
 		
 		int index = 0;
-		for(int x = 0;x<mat.length;x++) {
-			for(int y = 0;y<mat[x].length;y++) {
+		for(int x = 0;x<r;x++) {
+			for(int y = 0;y<c;y++) {
 				if(index>=text.length()) { mat[x][y] = '-'; } 
 				else {mat[x][y] = text.charAt(index++); }
 			}
@@ -24,7 +25,7 @@ public class TranspositionCipher {
 		
 		String ret = "";
 		for(int y : key) {
-			for(int x = 0;x<mat.length;x++) {
+			for(int x = 0;x<r;x++) {
 					ret += mat[x][y];
 			}
 		}
@@ -36,7 +37,6 @@ public class TranspositionCipher {
 		int r = text.length()/keylen, c = keylen;
 		mat = new char[r][c];
 		int index = 0;
-		System.out.println(text);
 		for (int i = 0; i < c; i++) {
 			for (int j = 0; j < r; j++) {
 				mat[j][i] = text.charAt(index++);
