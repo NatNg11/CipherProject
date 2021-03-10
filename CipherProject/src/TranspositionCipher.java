@@ -3,7 +3,14 @@ import java.io.*;
 
 public class TranspositionCipher {
 	char[][] mat;
-	public TranspositionCipher(String text, int len) {
+	String text;
+	int len;
+	public TranspositionCipher(String t, int l) {
+		text = t;
+		len = l;
+	}
+	
+	public String encode(int[] key) {
 		if(len>text.length()) { throw new IllegalArgumentException("key is too long"); }
 		mat = new char[(int)(Math.ceil(text.length()/(double)len))][len];
 		
@@ -19,15 +26,13 @@ public class TranspositionCipher {
 			System.out.println(Arrays.toString(a));
 		}
 		System.out.println();
-	}
-	
-	public String encode(int[] key) {
+		
 		String ret = "";
 		for(int y : key) {
 			for(int x = 0;x<mat.length;x++) {
-				if(mat[x][y]!=' ') {
+				//if(mat[x][y]!=' ') {
 					ret += mat[x][y];
-				}
+				//}
 			}
 		}
 		return ret;
