@@ -4,15 +4,15 @@ import java.io.*;
 public class TranspositionCipher {
 	char[][] mat;
 	String text;
-	int len;
+	int keylen;
 	public TranspositionCipher(String t, int l) {
 		text = t;
-		len = l;
-		if(len>text.length()) { throw new IllegalArgumentException("key is too long"); }
+		keylen = l;
+		if(keylen>text.length()) { throw new IllegalArgumentException("key is too long"); }
 	}
 	
 	public String encode(int[] key) {
-		mat = new char[(int)(Math.ceil(text.length()/(double)len))][len];
+		mat = new char[(int)(Math.ceil(text.length()/(double)keylen))][keylen];
 		
 		int index = 0;
 		for(int x = 0;x<mat.length;x++) {
