@@ -8,10 +8,10 @@ public class TranspositionCipher {
 	public TranspositionCipher(String t, int l) {
 		text = t;
 		len = l;
+		if(len>text.length()) { throw new IllegalArgumentException("key is too long"); }
 	}
 	
 	public String encode(int[] key) {
-		if(len>text.length()) { throw new IllegalArgumentException("key is too long"); }
 		mat = new char[(int)(Math.ceil(text.length()/(double)len))][len];
 		
 		int index = 0;
@@ -22,11 +22,6 @@ public class TranspositionCipher {
 			}
 		}
 		
-		for(char[] a : mat) {
-			System.out.println(Arrays.toString(a));
-		}
-		System.out.println();
-		
 		String ret = "";
 		for(int y : key) {
 			for(int x = 0;x<mat.length;x++) {
@@ -35,10 +30,18 @@ public class TranspositionCipher {
 				//}
 			}
 		}
+		
 		return ret;
 	}
 	
 	public String decode() {
 		return "";
+	}
+	
+	public void printMat() {
+		System.out.println();
+		for(char[] a : mat) {
+			System.out.println(Arrays.toString(a));
+		}
 	}
 }
