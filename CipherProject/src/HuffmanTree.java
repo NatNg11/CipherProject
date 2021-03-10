@@ -4,10 +4,14 @@ import java.util.*;
 public class HuffmanTree {
 	
 	private Queue<HuffmanNode> q;
+	private Map<Character,String> codes;
+	private String str;
 
 	// String constructor
 	public HuffmanTree(String s) throws FileNotFoundException {
 		q = new PriorityQueue<>();
+		codes = new HashMap<>();
+		str = s;
 		// finds frequencies of letters
 		char[] c = s.toCharArray();
 		Map<Character,Integer> freqMap = new HashMap<>();
@@ -26,20 +30,36 @@ public class HuffmanTree {
 			te.l = l; te.r = r;
 			q.offer(te);
 		}
+		save(new PrintStream(new File("huffman.code")));
+		store(new Scanner(new File("huffman.code")));
 	}
 	
-	// prints code of each huffman
-	public void save(PrintStream output) {
-		printTree(q.peek(),"",output);
+	public void printBitStream(PrintStream output) {
+		for(char item : str.toCharArray()) {
+			output.print(codes.get(item));
+		}
+		output.println();
 	}
-	private void printTree(HuffmanNode n, String path, PrintStream out) {
+	
+	// stores the code of each character
+	private void store(Scanner f) {
+		while(f.hasNext()) {
+			codes.put((char)Integer.parseInt(f.nextLine()), f.nextLine());
+		}
+	}
+	
+	// saves huffman code into a file
+	public void save(PrintStream output) {
+		save(q.peek(),"",output);
+	}
+	private void save(HuffmanNode n, String path, PrintStream out) {
 		if(n == null) return;
 		if(n.l == null && n.r == null) {
 			out.println((int)n.c);
 			out.println(path);
 		}
-		printTree(n.l,path+"0",out);
-		printTree(n.r,path+"1",out);
+		save(n.l,path+"0",out);
+		save(n.r,path+"1",out);
 	}
 	
 	// Input bitstream constructor
@@ -67,6 +87,7 @@ public class HuffmanTree {
 		q.offer(root);
 	}
 
+	// translates from bitstream into string based on current huffmantree
 	public void translate(String in, PrintStream out) {
 		HuffmanNode current = q.peek();
 		char[] c = in.toCharArray();
