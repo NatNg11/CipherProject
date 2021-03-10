@@ -17,7 +17,7 @@ public class TranspositionCipher {
 		int index = 0;
 		for(int x = 0;x<mat.length;x++) {
 			for(int y = 0;y<mat[x].length;y++) {
-				if(index>=text.length()) { mat[x][y] = ' '; } 
+				if(index>=text.length()) { mat[x][y] = '-'; } 
 				else {mat[x][y] = text.charAt(index++); }
 			}
 		}
@@ -25,17 +25,36 @@ public class TranspositionCipher {
 		String ret = "";
 		for(int y : key) {
 			for(int x = 0;x<mat.length;x++) {
-				//if(mat[x][y]!=' ') {
 					ret += mat[x][y];
-				//}
 			}
 		}
 		
 		return ret;
 	}
 	
-	public String decode() {
-		return "";
+	public String decode(int[] key) {
+		int r = text.length()/keylen, c = keylen;
+		mat = new char[r][c];
+		int index = 0;
+		System.out.println(text);
+		for (int i = 0; i < c; i++) {
+			for (int j = 0; j < r; j++) {
+				mat[j][i] = text.charAt(index++);
+			}
+		}
+		char[][] copy = new char[r][c];
+		int k = 0;
+		for (int item : key) {
+			for (int i = 0; i < r; i++) {
+				copy[i][item] = mat[i][k];
+			}
+			k++;
+		}
+		String ret = "";
+		for (int i = 0; i < r; i++) {
+			ret += new String(copy[i]);
+		}
+		return ret.replaceAll("-","");
 	}
 	
 	public void printMat() {
